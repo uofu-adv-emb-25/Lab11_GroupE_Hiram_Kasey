@@ -43,6 +43,7 @@ void main_task(__unused void *params)
 {
     // initialize CYW43 driver architecture
     // (will enable BT if/because CYW43_ENABLE_BLUETOOTH == 1)
+    vTaskDelay(5000);
     if (cyw43_arch_init()) {
         printf("failed to initialise cyw43_arch\n");
     } else {

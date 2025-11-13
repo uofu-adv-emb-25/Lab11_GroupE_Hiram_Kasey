@@ -1,5 +1,0 @@
-/Users/hiramperez/ECE5785/Lab11_GroupE_Hiram_Kasey/build/pioasm-install/pioasm/pioasm
-/Users/hiramperez/ECE5785/Lab11_GroupE_Hiram_Kasey/build/pioasm-install/pioasm/pioasmTargets.cmake
-/Users/hiramperez/ECE5785/Lab11_GroupE_Hiram_Kasey/build/pioasm-install/pioasm/pioasmTargets-release.cmake
-/Users/hiramperez/ECE5785/Lab11_GroupE_Hiram_Kasey/build/pioasm-install/pioasm/pioasmConfig.cmake
-/Users/hiramperez/ECE5785/Lab11_GroupE_Hiram_Kasey/build/pioasm-install/pioasm/pioasmConfigVersion.cmake

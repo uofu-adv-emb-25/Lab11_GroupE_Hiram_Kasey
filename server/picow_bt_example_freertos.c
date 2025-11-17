@@ -22,6 +22,7 @@
 
 int btstack_main(int argc, const char * argv[]);
 static btstack_packet_callback_registration_t hci_event_callback_registration;
+int static num_connections = 0;
 
 static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size){
     UNUSED(size);
@@ -33,6 +34,13 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
             if (btstack_event_state_get_state(packet) != HCI_STATE_WORKING) return;
             gap_local_bd_addr(local_addr);
             printf("BTstack up and running on %s.\n", bd_addr_to_str(local_addr));
+            break;
+        case BTSTACK_EVENT_NR_CONNECTIONS_CHANGED:
+            if (num_connections = btstack_event_nr_connections_changed_get_number_connections(packet)) {
+                printf("CONNECTED %d\n", num_connections);
+            } else {
+                printf("NO CONNECTED\n");
+            }
             break;
         default:
             break;

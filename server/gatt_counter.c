@@ -229,17 +229,22 @@ static uint16_t att_read_callback(hci_con_handle_t connection_handle, uint16_t a
     if (att_handle == ATT_CHARACTERISTIC_0000FF11_0000_1000_8000_00805F9B34FB_01_VALUE_HANDLE){
         return att_read_callback_handle_blob((const uint8_t *)counter_string, counter_string_len, offset, buffer, buffer_size);
     }
-    if(att_handle == ATT_CHARACTERISTIC_ORG_BLUETOOTH_CHARACTERISTIC_TEMPERATURE_01_VALUE_HANDLE)
+    else if(att_handle == ATT_CHARACTERISTIC_ORG_BLUETOOTH_CHARACTERISTIC_TEMPERATURE_01_VALUE_HANDLE)
     {
         printf("Measured temperature: %0.2f\n", temp_measurement);
         uint16_t data = 0;
         if (xSemaphoreTake(temp_semaphore, 1)) {
             data = (uint16_t)(temp_measurement*100);
+            printf("Hex Data value: %x\n", data);
+            printf("Decimal Data value: %d\n", data);
             xSemaphoreGive(temp_semaphore);
         }
         return att_read_callback_handle_little_endian_16(data, offset, buffer, buffer_size);
     }
-    return 0;
+    else
+    {
+        return 0;
+    }
 }
 /* LISTING_END */
 
@@ -250,7 +255,6 @@ static void temperature_task(__unused void *args)
         float temp = temperature_poll();
          if (xSemaphoreTake(temp_semaphore, 10)) {
             temp_measurement = temp;
-        printf("Measured temperature: %0.2f\n", temp_measurement);
             xSemaphoreGive(temp_semaphore);
         } else {
             printf("Unable to acquire semaphore\n");
